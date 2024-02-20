@@ -1,0 +1,78 @@
+<div class="registration-wrap">
+  <form class="registration-form" [formGroup]="registrationForm">
+    <h1>Registration form</h1>
+
+    <div class="input-box name-content">
+      <label for="name">Name: </label>
+
+      <div class="input-text-container">
+        <img class="account-icon-image" src="../../assets/pics/account.svg" />
+        <input type="text" id="name" formControlName="name"/>
+      </div>
+    </div>
+
+    <div class="input-box username-content">
+      <label for="username">Username: </label>
+
+      <div class="input-text-container">
+        <img class="account-icon-image" src="../../assets/pics/account.svg" />
+        <input type="text" id="username" formControlName="userName"/>
+      </div>
+    </div>
+
+    <div class="input-box email-content">
+      <label for="email">Email: </label>
+
+      <div class="input-text-container">
+        <mat-icon class="icon">email</mat-icon> 
+        <input type="text" id="email" formControlName="email"/>
+      </div>
+    </div>
+
+    <div class="input-box phone-content">
+      <label for="phone">Phone: </label>
+
+      <div class="input-text-container">
+        <mat-icon class="icon">phone</mat-icon> 
+        <span>+36</span>
+        <select name="" id="">
+          <option value="">20</option>
+          <option value="">30</option>
+          <option value="">50</option>
+          <option value="">70</option>
+        </select>
+        <input type="text" id="phone" formControlName="phone"/>
+      </div>
+      <small class="error-message" >Nem jó formátum</small>
+    </div>
+
+    <div class="input-box password-content">
+      <label for="password">Password: </label>
+
+      <div class="input-text-container">
+        <mat-icon class="icon">lock</mat-icon> 
+        <input type="text" id="password" formControlName="password" />
+      </div>
+    </div>
+
+    <div class="input-box confirm-password-content">
+      <label for="confirm-password">Confirm password: </label>
+
+      <div class="input-text-container">
+        <mat-icon class="icon">lock</mat-icon> 
+        <input type="text" id="confirm-password" formControlName="confirmPassword" />
+      </div>
+    </div>
+
+    <div class="submit-button" (click)="onRegistration()" >SUBMIT<mat-icon class="send-icon">send</mat-icon></div>
+
+    <div class="to-login">
+      <small>Already have an account?</small>
+      <p routerLink="/login">SIGN IN</p>
+    </div>
+  </form>
+</div>
+
+
+
+
