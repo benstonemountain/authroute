@@ -1,2 +1,5 @@
-
+<header>
+    <div>Target Component</div>
+    <div *ngIf="isAuthenticated$ | async"> <a href="javascript:void(0)" (click)="logOutHandler()">Log Out</a></div>
+</header>
 <router-outlet></router-outlet>

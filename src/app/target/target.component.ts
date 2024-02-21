@@ -10,9 +10,4 @@ export class TargetComponent {
 
 constructor(private authService: AuthService) {}
 
-  logout() {
-   this.authService.logout();
-    
-  }
-
 }
