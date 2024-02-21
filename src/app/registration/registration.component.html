@@ -27,23 +27,25 @@
         <mat-icon class="icon">email</mat-icon> 
         <input type="text" id="email" formControlName="email"/>
       </div>
+      <small class="error-message" *ngIf="formControls.email.touched && formControls.email.errors?.['wrongEmailFormat']">Nem megfelelő e-mail fromátum!</small>
     </div>
 
     <div class="input-box phone-content">
       <label for="phone">Phone: </label>
 
       <div class="input-text-container">
-        <mat-icon class="icon">phone</mat-icon> 
-        <span>+36</span>
-        <select name="" id="">
-          <option value="">20</option>
-          <option value="">30</option>
-          <option value="">50</option>
-          <option value="">70</option>
+        <mat-icon class="icon phone-icon">phone</mat-icon> 
+        <span class="num-prefix">+36/</span>
+        <select id="select-phone-number">
+          <option value="20">20</option>
+          <option value="30">30</option>
+          <option value="50">50</option>
+          <option value="70">70</option>
         </select>
-        <input type="text" id="phone" formControlName="phone"/>
+        <input type="number" id="phone" formControlName="phone"
+        (keydown)="preventInvalidCharacters($event)"/>
       </div>
-      <small class="error-message" >Nem jó formátum</small>
+      <small class="error-message" *ngIf="formControls.phone.touched && formControls.phone.errors?.['wrongNumber']">Nem megfelelő formátum!</small>
     </div>
 
     <div class="input-box password-content">

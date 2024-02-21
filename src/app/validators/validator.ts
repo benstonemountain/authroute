@@ -1,15 +1,28 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
-export function ontelephoneValidate(): ValidatorFn {
+export function onPhoneValidate(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
-    const telephoneNumberByUser = control.value;
+    const numbersByUser = control.value;
+    let regEx = /^[0-9]{7}$/g;
 
-    let upper = /[0-9]{7}/g;
-
-    if (upper.test(telephoneNumberByUser)) {
+    if (regEx.test(numbersByUser)) {
       return null;
     } else {
-      return { isUpperCase: true };
+      return { wrongNumber: true };
     }
   };
 }
+
+export function onEmailValidate(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const emailByUser = control.value;
+    let regEx = /^[^\s@]+@[^\s@.]+\.[^\s@.]+$/g;
+
+    if (regEx.test(emailByUser)) {
+      return null;
+    } else {
+      return { wrongEmailFormat: true };
+    }
+  };
+}
+

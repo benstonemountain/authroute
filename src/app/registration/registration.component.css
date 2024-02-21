@@ -58,7 +58,7 @@ label {
 }
 
 
-input[type=text] {
+input[type=text], input[type=number] {
     border: 1px solid rgb(228, 217, 217);
     display: block;
     width: 100%;
@@ -67,6 +67,43 @@ input[type=text] {
     outline: initial;
     font-size: 1.3rem;
 }
+
+/* SELECT PHONE NUMBER */
+#select-phone-number {
+    border: 1px solid rgb(228, 217, 217);
+    border-left: none;
+    background-color: initial;
+    outline: none;
+    font-size: 16px;
+    font-family: 'Times New Roman', Times, serif;
+    padding-bottom: 1px;
+}
+
+
+.num-prefix {
+    border: 1px solid rgb(228, 217, 217);
+    border-right: none;
+    width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.phone-icon {
+    width: 40px;
+}
+
+#phone::-webkit-outer-spin-button,
+#phone::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    /* margin: 0; */
+}
+
+#phone {
+    appearance: textfield;
+}
+
 
 /* GOMB */
 
@@ -80,8 +117,8 @@ input[type=text] {
     align-items: center;
     /* border: 1px solid #f1a25c;
     background-color: #e67e22; */
-    border: 1px solid #f3e1dc; 
-    background-color: #ffe9e3; 
+    border: 1px solid #f3e1dc;
+    background-color: #ffe9e3;
 
     margin: 30px auto 25px;
     font-weight: bold;
@@ -99,7 +136,7 @@ input[type=text] {
 
 .to-login {
     text-align: center;
-    
+
 }
 .to-login p{
     color: rgb(1, 1, 199);
@@ -108,7 +145,7 @@ input[type=text] {
     text-decoration: underline;
     cursor: pointer;
     padding: 2px;
-    
+
 }
 
 .to-login p:hover {
