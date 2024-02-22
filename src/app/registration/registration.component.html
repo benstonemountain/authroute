@@ -53,8 +53,9 @@
 
       <div class="input-text-container">
         <mat-icon class="icon">lock</mat-icon> 
-        <input type="text" id="password" formControlName="password" />
+        <input type="text" id="password" formControlName="password"  />
       </div>
+      <small class="error-message" *ngIf="formControls.password.touched"> {{checkErrorsInPassword(registrationForm.value.password)}} </small>
     </div>
 
     <div class="input-box confirm-password-content">

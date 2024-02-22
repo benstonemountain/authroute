@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 
 import { onPhoneValidate, onEmailValidate } from '../validators/validator';
 
+
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -14,18 +15,15 @@ import { onPhoneValidate, onEmailValidate } from '../validators/validator';
 })
 export class RegistrationComponent {
   public error: string | null = null;
+  
 
   registrationForm = this.formBuilder.group({
-    name: [
-      '',
-      {
-        validators: [Validators.required],
-      },
+    name: ['',{validators: [Validators.required],},
     ],
     userName: [
       '',
       {
-        validators: [Validators.required],
+        validators: [Validators.required, Validators.maxLength(50)],
       },
     ],
     email: [
@@ -39,7 +37,7 @@ export class RegistrationComponent {
     password: [
       '',
       {
-        validators: [Validators.required],
+        validators: [Validators.required, ],
       },
     ],
     confirmPassword: [
@@ -53,11 +51,15 @@ export class RegistrationComponent {
   constructor(
     private formBuilder: FormBuilder,
     private httpClient: HttpClient,
-    private router: Router
+    private router: Router,
+  
   ) {}
 
   get formControls () {return this.registrationForm.controls}
 
+  
+  
+  // telefonszámhoz -, +, . és "e" is tiltott
   preventInvalidCharacters(event: KeyboardEvent) {
     const invalidCharacters = ['.', ',', '-', '+', 'e'];
     const inputByUser = event.key;
@@ -66,6 +68,36 @@ export class RegistrationComponent {
       event.preventDefault();
     }
   }
+
+
+  checkErrorsInPassword(passwordByUser: string | null | undefined ): string {
+
+    let errorMessage = "";
+   
+    let upper = /[A-Z]/;
+    let lower = /[a-z]/;
+    let numbers = /[0-9]/;
+    let length = /^.{8,32}$/;
+   
+    if(passwordByUser) {
+    
+    if(!numbers.test(passwordByUser)) {
+      errorMessage = "A jelszónak tartalmaznia kell legalább egy számot.";
+    } else if(!upper.test(passwordByUser)) {
+      errorMessage = "A jelszónak tartalmaznia kell legalább egy nagybetűt.";
+    } else if(!lower.test(passwordByUser)) {
+      errorMessage = "A jelszónak tartalmaznia kell legalább egy kisbetűt.";
+    }else if(!length.test(passwordByUser)) {
+      errorMessage = "A jelszó minimum 8, maximum 32 karakter lehet.";
+    } else {
+      errorMessage = "";
+    }
+   
+   } 
+   return errorMessage;
+   
+   }
+
 
   public onRegistration() {
     console.log(this.registrationForm.value);
