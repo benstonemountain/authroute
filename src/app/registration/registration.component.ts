@@ -28,7 +28,7 @@ export class RegistrationComponent {
 
     phone:['',{validators: [Validators.required, onPhoneValidate()]},],
 
-    selectedOption: ['20'],
+    dialingCode: ['20'],
 
     password: ['',
       {
@@ -75,10 +75,7 @@ export class RegistrationComponent {
 
 
 
-   showData() {
-    console.log(this.registrationForm.controls?.['selectedOption']);
-    
-   }
+ 
 
 
   public onRegistration() {

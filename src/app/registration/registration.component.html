@@ -40,7 +40,7 @@
       <div class="input-text-container">
         <mat-icon class="icon phone-icon">phone</mat-icon> 
         <span class="num-prefix">+36/</span>
-        <select id="select-phone-number" formControlName="selectedOption" (blur)="showData()">
+        <select id="select-phone-number" formControlName="dialingCode">
           <option value="20">20</option>
           <option value="30">30</option>
           <option value="50">50</option>
@@ -75,11 +75,13 @@
       </div>
       <small class="error-message" *ngIf="registrationForm.errors?.['passwordMismatch'] && formControls?.['confirmPassword']?.touched">Jelszó nem egyezik!</small>
     </div>
-
+    
     <button class="submit-button" 
     [ngClass]="registrationForm.invalid ? 'invalid-button' : '' "
     (click)="onRegistration()"
-    [disabled]="registrationForm.invalid">
+    
+    [disabled]="registrationForm.invalid"
+    >
       SUBMIT<mat-icon class="send-icon">send</mat-icon>
     </button>
 

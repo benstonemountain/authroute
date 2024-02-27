@@ -4,6 +4,12 @@
       "email": "valami@valami.hu",
       "password": "$2a$10$exm37qdFw0EP.bMlYc4M6uwr3ZuqGHfP8wdw3vImuJHy6s6cDnhWe",
       "id": 1
+    },
+    
+    {
+      "email": "benci@benci.hu",
+      "password": "$2a$10$9pB7P2rP5x8J9Fft7cadbe.RXiZWC2Er3MO8F2.mrlH7k1GFG9Nn6",
+      "id": 2
     }
   ]
 }
