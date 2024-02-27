@@ -7,8 +7,9 @@
 
       <div class="input-text-container">
         <img class="account-icon-image" src="../../assets/pics/account.svg" />
-        <input type="text" id="name" formControlName="name"/>
+        <input type="text" id="name" formControlName="name" />
       </div>
+      <small class="error-message" *ngIf="formControls?.['name']?.errors?.['required'] && formControls?.['name']?.touched">Kötelező mező!</small>
     </div>
 
     <div class="input-box username-content">
@@ -16,8 +17,10 @@
 
       <div class="input-text-container">
         <img class="account-icon-image" src="../../assets/pics/account.svg" />
-        <input type="text" id="username" formControlName="userName"/>
+        <input type="text" id="username" formControlName="userName" (input)="showData()"/>
       </div>
+      <small class="error-message" *ngIf="formControls?.['userName']?.errors?.['maxlength']">A felhasználó név 10 karakternél nem lehet hosszabb!</small>
+      <small class="error-message" *ngIf="formControls?.['userName']?.errors?.['required'] && formControls?.['userName']?.touched">Kötelező mező!</small>
     </div>
 
     <div class="input-box email-content">
@@ -25,9 +28,10 @@
 
       <div class="input-text-container">
         <mat-icon class="icon">email</mat-icon> 
-        <input type="text" id="email" formControlName="email"/>
+        <input type="text" id="email" formControlName="email" />
       </div>
-      <small class="error-message" *ngIf="formControls.email.touched && formControls.email.errors?.['wrongEmailFormat']">Nem megfelelő e-mail fromátum!</small>
+      <small class="error-message" *ngIf="formControls?.['email']?.touched &&  (!formControls?.['email']?.errors?.['required']) && formControls?.['email']?.errors?.['wrongEmailFormat']">Nem megfelelő formátum!</small>
+      <small class="error-message" *ngIf="formControls?.['email']?.touched &&  (formControls?.['email']?.errors?.['required']) && formControls?.['email']?.errors?.['wrongEmailFormat']">Kötelező mező!</small>
     </div>
 
     <div class="input-box phone-content">
@@ -45,7 +49,7 @@
         <input type="number" id="phone" formControlName="phone"
         (keydown)="preventInvalidCharacters($event)"/>
       </div>
-      <small class="error-message" *ngIf="formControls.phone.touched && formControls.phone.errors?.['wrongNumber']">Nem megfelelő formátum!</small>
+      <small class="error-message" *ngIf="formControls?.['phone']?.touched && formControls?.['phone']?.errors?.['wrongNumber']">Nem megfelelő formátum!</small>
     </div>
 
     <div class="input-box password-content">
@@ -55,7 +59,11 @@
         <mat-icon class="icon">lock</mat-icon> 
         <input type="text" id="password" formControlName="password"  />
       </div>
-      <small class="error-message" *ngIf="formControls.password.touched"> {{checkErrorsInPassword(registrationForm.value.password)}} </small>
+      <div class="error-messages">
+        <small class="error-message" *ngIf="formControls?.['password']?.touched"> {{formControls['password'].errors && formControls['password'].errors['errorMessage']}} </small>
+
+        <small class="error-message" *ngIf="formControls?.['password']?.touched && formControls?.['password']?.errors?.['required']">Kötelező mező!</small>
+      </div>
     </div>
 
     <div class="input-box confirm-password-content">
@@ -63,8 +71,9 @@
 
       <div class="input-text-container">
         <mat-icon class="icon">lock</mat-icon> 
-        <input type="text" id="confirm-password" formControlName="confirmPassword" />
+        <input type="text" id="confirm-password" formControlName="confirmPassword" (blur)="showData()"/>
       </div>
+      <small class="error-message" *ngIf="registrationForm.errors?.['passwordMismatch'] && formControls?.['confirmPassword']?.touched">Jelszó nem egyezik!</small>
     </div>
 
     <div class="submit-button" (click)="onRegistration()" >SUBMIT<mat-icon class="send-icon">send</mat-icon></div>

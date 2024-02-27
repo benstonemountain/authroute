@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs';
 import { Router } from '@angular/router';
 
-import { onPhoneValidate, onEmailValidate } from '../validators/validator';
+import { onPhoneValidate, onEmailValidate, onPasswordValidate, passwordMatchValidator } from '../validators/validator';
 
 
 @Component({
@@ -18,26 +18,19 @@ export class RegistrationComponent {
   
 
   registrationForm = this.formBuilder.group({
-    name: ['',{validators: [Validators.required],},
-    ],
+    name: ['',[Validators.required],],
+  
     userName: [
-      '',
-      {
-        validators: [Validators.required, Validators.maxLength(50)],
-      },
-    ],
+      '', [Validators.required, Validators.maxLength(10)],],
+    
     email: [
-      '',
+      '', [Validators.required, onEmailValidate()],],
+
+    phone:['',{validators: [Validators.required, onPhoneValidate()]},],
+
+    password: ['',
       {
-        validators: [Validators.required, onEmailValidate()],
-      },
-    ],
-    phone:['',{validators: [Validators.required, onPhoneValidate()]},
-    ],
-    password: [
-      '',
-      {
-        validators: [Validators.required, ],
+        validators: [Validators.required, onPasswordValidate],
       },
     ],
     confirmPassword: [
@@ -45,8 +38,14 @@ export class RegistrationComponent {
       {
         validators: [Validators.required],
       },
+
+    
     ],
-  });
+
+   
+  }, 
+      {validator: passwordMatchValidator}
+  );
 
   constructor(
     private formBuilder: FormBuilder,
@@ -56,6 +55,8 @@ export class RegistrationComponent {
   ) {}
 
   get formControls () {return this.registrationForm.controls}
+
+  
 
   
   
@@ -70,32 +71,10 @@ export class RegistrationComponent {
   }
 
 
-  checkErrorsInPassword(passwordByUser: string | null | undefined ): string {
 
-    let errorMessage = "";
-   
-    let upper = /[A-Z]/;
-    let lower = /[a-z]/;
-    let numbers = /[0-9]/;
-    let length = /^.{8,32}$/;
-   
-    if(passwordByUser) {
+   showData() {
+    console.log(this.registrationForm.controls?.['confirmPassword'].errors);
     
-    if(!numbers.test(passwordByUser)) {
-      errorMessage = "A jelszónak tartalmaznia kell legalább egy számot.";
-    } else if(!upper.test(passwordByUser)) {
-      errorMessage = "A jelszónak tartalmaznia kell legalább egy nagybetűt.";
-    } else if(!lower.test(passwordByUser)) {
-      errorMessage = "A jelszónak tartalmaznia kell legalább egy kisbetűt.";
-    }else if(!length.test(passwordByUser)) {
-      errorMessage = "A jelszó minimum 8, maximum 32 karakter lehet.";
-    } else {
-      errorMessage = "";
-    }
-   
-   } 
-   return errorMessage;
-   
    }
 
 
