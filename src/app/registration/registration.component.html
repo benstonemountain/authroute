@@ -17,7 +17,7 @@
 
       <div class="input-text-container">
         <img class="account-icon-image" src="../../assets/pics/account.svg" />
-        <input type="text" id="username" formControlName="userName" (input)="showData()"/>
+        <input type="text" id="username" formControlName="userName" />
       </div>
       <small class="error-message" *ngIf="formControls?.['userName']?.errors?.['maxlength']">A felhasználó név 10 karakternél nem lehet hosszabb!</small>
       <small class="error-message" *ngIf="formControls?.['userName']?.errors?.['required'] && formControls?.['userName']?.touched">Kötelező mező!</small>
@@ -40,14 +40,14 @@
       <div class="input-text-container">
         <mat-icon class="icon phone-icon">phone</mat-icon> 
         <span class="num-prefix">+36/</span>
-        <select id="select-phone-number">
+        <select id="select-phone-number" formControlName="selectedOption" (blur)="showData()">
           <option value="20">20</option>
           <option value="30">30</option>
           <option value="50">50</option>
           <option value="70">70</option>
         </select>
         <input type="number" id="phone" formControlName="phone"
-        (keydown)="preventInvalidCharacters($event)"/>
+        (keydown)="preventInvalidCharacters($event)"  placeholder="1234567"/>
       </div>
       <small class="error-message" *ngIf="formControls?.['phone']?.touched && formControls?.['phone']?.errors?.['wrongNumber']">Nem megfelelő formátum!</small>
     </div>
@@ -71,12 +71,17 @@
 
       <div class="input-text-container">
         <mat-icon class="icon">lock</mat-icon> 
-        <input type="text" id="confirm-password" formControlName="confirmPassword" (blur)="showData()"/>
+        <input type="text" id="confirm-password" formControlName="confirmPassword" />
       </div>
       <small class="error-message" *ngIf="registrationForm.errors?.['passwordMismatch'] && formControls?.['confirmPassword']?.touched">Jelszó nem egyezik!</small>
     </div>
 
-    <div class="submit-button" (click)="onRegistration()" >SUBMIT<mat-icon class="send-icon">send</mat-icon></div>
+    <button class="submit-button" 
+    [ngClass]="registrationForm.invalid ? 'invalid-button' : '' "
+    (click)="onRegistration()"
+    [disabled]="registrationForm.invalid">
+      SUBMIT<mat-icon class="send-icon">send</mat-icon>
+    </button>
 
     <div class="to-login">
       <small>Already have an account?</small>

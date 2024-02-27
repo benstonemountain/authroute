@@ -108,20 +108,20 @@ input[type=text], input[type=number] {
 /* GOMB */
 
 .submit-button {
-    border: 1px solid black;
+    
+    
     width: 150px;
     height: 45px;
     font-size: 1.2rem;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    /* border: 1px solid #f1a25c;
-    background-color: #e67e22; */
     border: 1px solid #f3e1dc;
     background-color: #ffe9e3;
 
     margin: 30px auto 25px;
     font-weight: bold;
+    font-family: inherit;
     cursor: pointer;
     transition: box-shadow 0.05s linear;
     box-shadow: 2px 6px 5px 2px rgba(0, 0, 0, 0.6);
@@ -133,6 +133,14 @@ input[type=text], input[type=number] {
 
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.7);
 }
+
+.invalid-button {
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+
+/* login */
 
 .to-login {
     text-align: center;
@@ -159,6 +167,11 @@ input[type=text], input[type=number] {
 
 .error-message {
     color: red;
+}
+
+#phone::placeholder {
+    color: rgb(194, 194, 194);
+    
 }
 
 

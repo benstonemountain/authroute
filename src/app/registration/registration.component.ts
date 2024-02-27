@@ -28,6 +28,8 @@ export class RegistrationComponent {
 
     phone:['',{validators: [Validators.required, onPhoneValidate()]},],
 
+    selectedOption: ['20'],
+
     password: ['',
       {
         validators: [Validators.required, onPasswordValidate],
@@ -54,6 +56,7 @@ export class RegistrationComponent {
   
   ) {}
 
+  
   get formControls () {return this.registrationForm.controls}
 
   
@@ -73,7 +76,7 @@ export class RegistrationComponent {
 
 
    showData() {
-    console.log(this.registrationForm.controls?.['confirmPassword'].errors);
+    console.log(this.registrationForm.controls?.['selectedOption']);
     
    }
 
@@ -82,8 +85,7 @@ export class RegistrationComponent {
     console.log(this.registrationForm.value);
 
     const { email, password } = this.registrationForm.value;
-    console.log(email);
-    console.log(password);
+
 
     this.httpClient
       .post('http://localhost:3000/register', { email, password })
