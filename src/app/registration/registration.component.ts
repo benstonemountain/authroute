@@ -81,11 +81,17 @@ export class RegistrationComponent {
   public onRegistration() {
     console.log(this.registrationForm.value);
 
-    const { email, password } = this.registrationForm.value;
+
+    const {name,
+      username,
+      email,
+      dialingCode,
+      phone,
+      password } = this.registrationForm.value;
 
 
     this.httpClient
-      .post('http://localhost:3000/register', { email, password })
+      .post('http://localhost:3000/register', {name, username, email, dialingCode, phone, password})
       .pipe(
         catchError((error) => {
           this.error = error.error;
