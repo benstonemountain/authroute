@@ -17,6 +17,14 @@
       "dialingCode": "20",
       "phone": 1234567,
       "id": 3
+    },
+    {
+      "email": "bence@bence.hu",
+      "password": "$2a$10$Bd5n/2SQeL3jEfMuJ5ZwHeeZAPtPcg01lyYGuvBzmdknlu/AmG5MS",
+      "name": "bence",
+      "dialingCode": "20",
+      "phone": 1111111,
+      "id": 4
     }
   ]
 }

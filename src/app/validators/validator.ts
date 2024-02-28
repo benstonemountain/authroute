@@ -58,16 +58,18 @@ export function onPasswordValidate(control: AbstractControl): ValidationErrors| 
   
 }
 
-export function passwordMatchValidator(formGroup: AbstractControl) {
+export function passwordMatchValidator(formGroup: AbstractControl): ValidatorFn {
+
+ return (control: AbstractControl): ValidationErrors | null => {
   const passwordControl = formGroup.get('password');
-  const confirmPasswordControl = formGroup.get('confirmPassword');
+  const confirmPasswordControl = control.value;
 
   if(!passwordControl || !confirmPasswordControl) return null;
 
 
-  if (passwordControl.value !== confirmPasswordControl.value) {
+  if (passwordControl.value !== confirmPasswordControl) {
     return { passwordMismatch: true };
   } else {
     return null;
   }
-}
+ }}

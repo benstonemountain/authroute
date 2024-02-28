@@ -1,12 +1,22 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs';
 import { Router } from '@angular/router';
 
-import { onPhoneValidate, onEmailValidate, onPasswordValidate, passwordMatchValidator } from '../validators/validator';
-
+import {
+  onPhoneValidate,
+  onEmailValidate,
+  onPasswordValidate,
+  passwordMatchValidator,
+} from '../validators/validator';
 
 @Component({
   selector: 'app-registration',
@@ -15,54 +25,47 @@ import { onPhoneValidate, onEmailValidate, onPasswordValidate, passwordMatchVali
 })
 export class RegistrationComponent {
   public error: string | null = null;
-  
+  registrationForm!: FormGroup;
 
-  registrationForm = this.formBuilder.group({
-    name: ['',[Validators.required],],
-  
-    userName: [
-      '', [Validators.required, Validators.maxLength(10)],],
-    
-    email: [
-      '', [Validators.required, onEmailValidate()],],
+  ngOnInit() {
+    console.log('ngOninit fut');
+    this.registrationForm = this.formBuilder.group({
+      name: ['', [Validators.required]],
 
-    phone:['',{validators: [Validators.required, onPhoneValidate()]},],
+      userName: ['', [Validators.required, Validators.maxLength(10)]],
 
-    dialingCode: ['20'],
+      email: ['', [Validators.required, onEmailValidate()]],
 
-    password: ['',
-      {
-        validators: [Validators.required, onPasswordValidate],
-      },
-    ],
-    confirmPassword: [
-      '',
-      {
-        validators: [Validators.required],
-      },
+      phone: ['', { validators: [Validators.required, onPhoneValidate()] }],
 
-    
-    ],
+      dialingCode: ['20'],
 
-   
-  }, 
-      {validator: passwordMatchValidator}
-  );
+      password: [
+        '',
+        {
+          validators: [Validators.required, onPasswordValidate],
+        },
+      ],
+      confirmPassword: [''],
+    });
+    this.registrationForm
+      .get('confirmPassword')
+      ?.setValidators([
+        Validators.required,
+        passwordMatchValidator(this.registrationForm),
+      ]);
+  }
 
   constructor(
     private formBuilder: FormBuilder,
     private httpClient: HttpClient,
-    private router: Router,
-  
+    private router: Router
   ) {}
 
-  
-  get formControls () {return this.registrationForm.controls}
+  get formControls() {
+    return this.registrationForm.controls;
+  }
 
-  
-
-  
-  
   // telefonszámhoz -, +, . és "e" is tiltott
   preventInvalidCharacters(event: KeyboardEvent) {
     const invalidCharacters = ['.', ',', '-', '+', 'e'];
@@ -73,25 +76,21 @@ export class RegistrationComponent {
     }
   }
 
-
-
- 
-
-
   public onRegistration() {
     console.log(this.registrationForm.value);
 
-
-    const {name,
-      username,
-      email,
-      dialingCode,
-      phone,
-      password } = this.registrationForm.value;
-
+    const { name, userName, email, dialingCode, phone, password } =
+      this.registrationForm.value;
 
     this.httpClient
-      .post('http://localhost:3000/register', {name, username, email, dialingCode, phone, password})
+      .post('http://localhost:3000/register', {
+        name,
+        userName,
+        email,
+        dialingCode,
+        phone,
+        password,
+      })
       .pipe(
         catchError((error) => {
           this.error = error.error;
